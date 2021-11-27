@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".NewStudentActivity">
+
+    <ImageView
+        android:id="@+id/newstudent_avatar_iv"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/avatar" />
+
+     <!--hint is for placeholder-->
+    <EditText
+        android:id="@+id/newstudent_name_et"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:hint="Name"
+        app:layout_constraintBottom_toTopOf="@+id/newstudent_id_et"
+        app:layout_constraintStart_toStartOf="@+id/newstudent_avatar_iv"
+        app:layout_constraintTop_toBottomOf="@+id/newstudent_avatar_iv" />
+
+    <EditText
+        android:id="@+id/newstudent_id_et"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:hint="Id"
+        app:layout_constraintBottom_toTopOf="@+id/newstudent_address_et"
+        app:layout_constraintStart_toStartOf="@+id/newstudent_name_et"
+        app:layout_constraintTop_toBottomOf="@+id/newstudent_name_et" />
+
+    <EditText
+        android:id="@+id/newstudent_address_et"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:hint="Address"
+        app:layout_constraintBottom_toTopOf="@+id/newstudent_phone_et"
+        app:layout_constraintStart_toStartOf="@+id/newstudent_id_et"
+        app:layout_constraintTop_toBottomOf="@+id/newstudent_id_et" />
+
+    <EditText
+        android:id="@+id/newstudent_phone_et"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:hint="Phone"
+        app:layout_constraintBottom_toTopOf="@+id/newstudent_cb"
+        app:layout_constraintStart_toStartOf="@+id/newstudent_address_et"
+        app:layout_constraintTop_toBottomOf="@+id/newstudent_address_et" />
+
+    <CheckBox
+        android:id="@+id/newstudent_cb"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:text="CheckBox"
+        app:layout_constraintBottom_toTopOf="@+id/newstudent_cancel_btn"
+        app:layout_constraintStart_toStartOf="@+id/newstudent_phone_et"
+        app:layout_constraintTop_toBottomOf="@+id/newstudent_phone_et" />
+
+    <Button
+        android:id="@+id/newstudent_save_btn"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginBottom="49dp"
+        android:text="Save"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/newstudent_cancel_btn" />
+
+    <Button
+        android:id="@+id/newstudent_cancel_btn"
+        android:layout_width="0dp"
+        android:layout_height="48dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="49dp"
+        android:text="Cancel "
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/newstudent_save_btn"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="@+id/newstudent_cb" />
+</androidx.constraintlayout.widget.ConstraintLayout>
