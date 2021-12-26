@@ -1,47 +1,52 @@
 package com.example.studentapp;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import com.example.studentapp.model.Model;
 import com.example.studentapp.model.Student;
 
 import java.util.List;
 
-public class StudentEditActivity extends AppCompatActivity {
+public class StudentEditFragment extends Fragment {
 
     List<Student> data;
 
+    @Nullable
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_student_edit);
-        setTitle("Edit");
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        //must start like this
+        View view = inflater.inflate(R.layout.fragment_student_edit, container, false);
+
         data = Model.instance.getAllStudents();
         //the student data
-        Bundle extra = getIntent().getExtras();
-        //get the date form the parent intent
 
-        int index = extra.getInt("pos");
+        //get the date form the parent fragment
+        int index = StudentEditFragmentArgs.fromBundle(getArguments()).getStudentIndex();
         Student student = data.get(index);
 
         //bring the view to the code
-        EditText name = findViewById(R.id.studentedit_name);
-        EditText id = findViewById(R.id.studentedit_id);
-        EditText address = findViewById(R.id.studentedit_addres);
-        EditText phone = findViewById(R.id.studentedit_phone);
-        CheckBox cb = findViewById(R.id.studentedit_cb);
-        Button saveBtn = findViewById(R.id.studentedit_save);
-        Button cancelBtn = findViewById(R.id.studentedit_cancel);
-        Button deleteBtn = findViewById(R.id.studentedit_delete);
+        EditText name = view.findViewById(R.id.studentedit_name);
+        EditText id = view.findViewById(R.id.studentedit_id);
+        EditText address = view.findViewById(R.id.studentedit_addres);
+        EditText phone = view.findViewById(R.id.studentedit_phone);
+        CheckBox cb = view.findViewById(R.id.studentedit_cb);
+        Button saveBtn = view.findViewById(R.id.studentedit_save);
+        Button cancelBtn = view.findViewById(R.id.studentedit_cancel);
+        Button deleteBtn = view.findViewById(R.id.studentedit_delete);
 
         //update the data
         name.setText(student.getName());
@@ -50,14 +55,13 @@ public class StudentEditActivity extends AppCompatActivity {
         phone.setText(student.getPhone());
         cb.setChecked(student.isFlag());
 
-        Intent intent = new Intent(this, StudentListRvActivity.class);
         //when we save or delete we want to go to homepage
-
         cancelBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Log.d("TAG", "CANCEL!");
-                finish();
+                Navigation.findNavController(v).navigate(StudentEditFragmentDirections.actionGlobalStudentListRvFragment());
+                //go from here to list page (home)
             }
         });
 
@@ -75,8 +79,9 @@ public class StudentEditActivity extends AppCompatActivity {
                 data.remove(index);
                 data.add(index, student);
                 Log.d("TAG", "Save new data");
-                startActivity(intent);
-
+                Navigation.findNavController(v).navigate(StudentEditFragmentDirections.actionGlobalStudentListRvFragment());
+                //if we define global action in our navGraph xml we can go there directly
+                //go from here to list page (home)
             }
         });
 
@@ -85,9 +90,13 @@ public class StudentEditActivity extends AppCompatActivity {
             public void onClick(View v) {
                 data.remove(index);
                 Log.d("TAG", "delete data");
-                startActivity(intent);
+                Navigation.findNavController(v).navigate(StudentEditFragmentDirections.actionGlobalStudentListRvFragment());
+                //go from here to list page (home)
             }
         });
 
+        return view;
     }
+
+
 }

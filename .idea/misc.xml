@@ -9,6 +9,9 @@
         <entry key="..\:/Users/User/AndroidStudioProjects/StudentApp/app/src/main/res/layout/activity_student_details222.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/User/AndroidStudioProjects/StudentApp/app/src/main/res/layout/activity_student_edit.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/User/AndroidStudioProjects/StudentApp/app/src/main/res/layout/activity_student_list.xml" value="0.2957427536231884" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/StudentApp/app/src/main/res/layout/fragment_new_student.xml" value="0.190625" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/StudentApp/app/src/main/res/layout/fragment_student_details.xml" value="0.190625" />
+        <entry key="..\:/Users/User/AndroidStudioProjects/StudentApp/app/src/main/res/layout/fragment_student_list.xml" value="0.190625" />
         <entry key="..\:/Users/User/AndroidStudioProjects/StudentApp/app/src/main/res/layout/student_list_row.xml" value="0.2957427536231884" />
       </map>
     </option>

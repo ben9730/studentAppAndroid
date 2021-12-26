@@ -1,13 +1,15 @@
 package com.example.studentapp;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
@@ -20,60 +22,54 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.List;
 
-public class StudentListRvActivity extends AppCompatActivity {
+public class StudentListRvFragment extends Fragment {
 
     List<Student> data;
 
+    @Nullable
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_student_list);
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        //this is for convert from activity to fragment
+        View view = inflater.inflate(R.layout.fragment_student_list, container, false);
+
 
         data = Model.instance.getAllStudents();
         //give us all the data in synchrony with the another code
 
-        RecyclerView list = findViewById(R.id.studentListRv_rv);
+        RecyclerView list = view.findViewById(R.id.studentListRv_rv);
         list.setHasFixedSize(true);
 
-        list.setLayoutManager(new LinearLayoutManager(this));
-        Intent intent = new Intent(this, StudentDetailsActivity.class);
-        //intent is to go form one screen to another  1 => 2
-        //intent to go to StudentDetailsActivity
-
+        list.setLayoutManager(new LinearLayoutManager(getContext()));
         MyAdapter adapter = new MyAdapter();
         list.setAdapter(adapter);
         adapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
-            public void onItemClick(int position) {
+            public void onItemClick(View v, int position) {
                 Log.d("TAG", "row was click " + position);
-                intent.putExtra("pos", position);
-                //this way to send data to new activity
-                startActivity(intent);
+                int studentIndex = position;
+
+                //this way to navigate and send data to the next fragment
+                //from student list to students details
+                Navigation.findNavController(v).navigate(StudentListRvFragmentDirections.actionStudentListRvFragmentToStudentDetailsFragment(studentIndex));
                 //go to =>details
             }
         });
 
-        addNewStudent();
+        FloatingActionButton addBtn = view.findViewById(R.id.Rv_addBtn_fab);
+        //in this way we navigated between different screen with navGraph
+        //this is one way
+        //student list to new student
+        addBtn.setOnClickListener(Navigation.createNavigateOnClickListener(StudentListRvFragmentDirections.actionStudentListRvFragmentToNewStudentFragment()));
+
         //ctrl + alt + m for take code and put in function
 
 
-    }
-
-    private void addNewStudent() {
-        Intent intent = new Intent(this, NewStudentActivity.class);
-        FloatingActionButton addBtn = findViewById(R.id.Rv_addBtn_fab);
-        addBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(intent); // gp from here => new student
-                //this is for go from this activity to new student activity
-            }
-        });
+        return view;
     }
 
 
     interface OnItemClickListener {
-        void onItemClick(int position);
+        void onItemClick(View v, int position);
     }
 
     class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
@@ -146,7 +142,7 @@ public class StudentListRvActivity extends AppCompatActivity {
                     int pos = getAdapterPosition();
 
                     //this is the row click
-                    listener.onItemClick(pos);
+                    listener.onItemClick(view, pos);
 
 
                 }

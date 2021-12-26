@@ -10,19 +10,20 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.StudentApp">
         <activity
-            android:name=".StudentEditActivity"
+            android:name=".StudentEditFragment"
             android:exported="false"
-            android:parentActivityName=".StudentListRvActivity"/>
+            android:parentActivityName=".StudentListRvFragment" />
         <activity
-            android:name=".StudentDetailsActivity"
+            android:name=".StudentDetailsFragment"
             android:exported="false"
-            android:parentActivityName=".StudentListRvActivity" />
+            android:parentActivityName=".StudentListRvFragment" />
         <activity
-            android:name=".NewStudentActivity"
+            android:name=".NewStudentFragment"
             android:exported="false"
-            android:parentActivityName=".StudentListRvActivity" /> <!-- how to add backarrow -->
+            android:parentActivityName=".StudentListRvFragment" /> <!-- how to add backarrow -->
+
         <activity
-            android:name=".StudentListRvActivity"
+            android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -30,9 +31,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".MainActivity"
-            android:exported="true" />
     </application>
 
 </manifest>
